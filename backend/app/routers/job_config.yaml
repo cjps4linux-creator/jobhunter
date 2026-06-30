@@ -1,0 +1,67 @@
+keywords:
+  - ai
+  - artificial intelligence
+  - machine learning
+  - ml
+  - full-stack
+  - full stack
+  - fullstack
+  - python
+  - react
+  - next.js
+  - node.js
+  - django
+  - flask
+  - fastapi
+  - junior
+  - entry-level
+  - graduate
+  - intern
+  - internship
+  - trainee
+  - associate
+
+exclude:
+  - senior
+  - lead
+  - principal
+  - architect
+  - director
+  - vp
+  - 5+ years
+  - 10+ years
+  - 8+ years
+
+locations:
+  - cape town
+  - johannesburg
+  - pretoria
+  - durban
+  - western cape
+  - gauteng
+  - kwazulu-natal
+  - south africa
+  - za
+  - remote
+  - fully remote
+  - remote-first
+  - work from home
+  - wfh
+  - distributed
+
+sources:
+  - remoteok
+  - remotive
+  - weworkremotely
+  - himalayas
+
+exclude_sources:
+  - pnet
+  - simply hired
+  - simplyhired
+  - talent.com
+  - indeed
+  - careers24
+
+refresh_interval_hours: 3
+auto_refresh_client_hours: 3
