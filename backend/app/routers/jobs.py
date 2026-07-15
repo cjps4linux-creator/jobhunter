@@ -121,10 +121,11 @@ async def fetch_remoteok(client: httpx.AsyncClient) -> List[Job]:
                     tags=tags,
                 )
             )
-    except Exception as exc:
+    except Exception:
         # Log in production; silent here to keep MVP simple
         pass
     return jobs
+
 
 
 async def fetch_remotive(client: httpx.AsyncClient) -> List[Job]:
