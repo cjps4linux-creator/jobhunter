@@ -16,11 +16,41 @@ from app.routers.jobs import (
 client = TestClient(app)
 
 
-# ---- Unit tests for pure helpers ----
+# ---- Fixtures ----
+
+@pytest.fixture
+def sample_job_factory():
+    """Factory fixture for creating test job dicts with safe defaults."""
+    def _factory(**overrides):
+        base = {
+            "id": "test-1",
+            "title": "Senior Python Engineer",
+            "company": "Acme Corp",
+            "location": "Remote",
+            "url": "https://acme.com/jobs/1",
+            "posted_at": "2025-01-15T00:00:00Z",
+            "source": "TestSource",
+            "job_type": "Full-time",
+            "tags": ["python", "remote"],
+        }
+        base.update(overrides)
+        return base
+    return _factory
 
 
-def test_normalize_lowercases_and_strips_noise():
-    assert normalize("Python & React!") == "pythonreact"
+# ---- Unit tests with parametrize ----
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("Python & React!", "pythonreact"),
+        ("Senior  Engineer", "seniorengineer"),
+        ("C++ / Go", "cgo"),
+        ("", ""),
+    ],
+)
+def test_normalize_lowercases_and_strips_noise(text, expected):
+    assert normalize(text) == expected
 
 
 def test_make_id_deterministic_for_same_inputs():
@@ -44,35 +74,38 @@ def test_parse_date_common_formats(raw, expected_tz):
     assert dt.tzinfo is not None
 
 
-def test_parse_date_invalid_returns_none():
-    assert parse_date("not-a-date") is None
-    assert parse_date("") is None
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        ("not-a-date", None),
+        ("", None),
+        ("9999-99-99", None),
+        ("2025-01-02T03:04:05", None),  # naive ISO needs explicit tz
+    ],
+)
+def test_parse_date_invalid_returns_none(raw, expected):
+    assert parse_date(raw) is expected
 
 
-def test_matches_keywords_true_on_title_hit():
+@pytest.mark.parametrize(
+    ("title", "tags", "expected"),
+    [
+        ("Senior Python Backend Engineer", [], True),
+        ("Office Receptionist", [], False),
+        ("DevOps Engineer", ["aws", "kubernetes"], True),
+        ("Marketing Manager", ["sales"], True),  # "manager" is in KEYWORDS by design
+    ],
+)
+def test_matches_keywords_parametrized(title, tags, expected):
     assert matches_keywords(
-        type(
-            "Job",
-            (),
-            {"title": "Senior Python Backend Engineer", "tags": []},
-        )()
-    ) is True
+        type("Job", (), {"title": title, "tags": tags})()
+    ) is expected
 
 
-def test_matches_keywords_false_when_no_hit():
-    assert matches_keywords(
-        type(
-            "Job",
-            (),
-            {"title": "Office Receptionist", "tags": []},
-        )()
-    ) is False
+# ---- Integration-style route checks ----
 
 
-# ---- FastAPI route checks ----
-
-
-def test_health_returns_ok():
+def test_health_endpoint_returns_ok():
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
@@ -84,12 +117,22 @@ def test_jobs_today_returns_list_schema():
     body = response.json()
     assert isinstance(body, list)
     if body:
-        assert "id" in body[0]
-        assert "title" in body[0]
-        assert "source" in body[0]
+        required_keys = [
+            "id",
+            "title",
+            "company",
+            "location",
+            "url",
+            "posted_at",
+            "source",
+            "job_type",
+            "tags",
+        ]
+        for key in required_keys:
+            assert key in body[0], f"missing {key}"
 
 
-# ---- Error-path coverage for fetchers ----
+# ---- Async error-path coverage ----
 
 
 @pytest.mark.anyio
