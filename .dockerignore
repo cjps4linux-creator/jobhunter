@@ -1,29 +1,17 @@
-include_apps = [
-    "app",
-    "tests",
-]
-
-include_root = [
-    "pyproject.toml",
-    "requirements.txt",
-]
-
-exclude = [
-    ".git",
-    ".github",
-    "__pycache__",
-    "*.pyc",
-    "*.pyo",
-    ".pytest_cache",
-    ".coverage",
-    "htmlcov",
-    ".venv",
-    "venv",
-    "node_modules",
-    ".next",
-    "*.log",
-    "logs",
-    "snapshots",
-    "*.json",
-    "*.jsonl",
-]
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.coverage
+htmlcov
+.venv
+venv
+node_modules
+.next
+*.log
+logs
+snapshots
+.env
+.env.*

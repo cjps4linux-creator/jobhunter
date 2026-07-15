@@ -6,6 +6,10 @@ ENV PYTHONPATH=/app/backend
 
 WORKDIR /app/backend
 
+COPY backend/pyproject.toml backend/requirements.txt ./
+COPY backend/app ./app
+COPY backend/tests ./tests
+
 RUN pip install --no-cache-dir -e ".[dev]"
 
 EXPOSE 8000
