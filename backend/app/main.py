@@ -20,7 +20,3 @@ app.add_middleware(
 app.include_router(health_router)
 app.include_router(jobs.router, prefix="/api", tags=["jobs"])
 app.include_router(auth_router)
-
-@app.get("/health")
-async def health() -> dict:
-    return {"status": "ok"}

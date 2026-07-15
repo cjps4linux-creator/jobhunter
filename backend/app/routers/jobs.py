@@ -1,29 +1,15 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
-from typing import List, Optional
+from __future__ import annotations
+
 import asyncio
-import httpx
-import feedparser
-import hashlib
 import re
 from datetime import datetime, timezone
+from typing import List
+
+from fastapi import APIRouter
+
+from app import schemas
 
 router = APIRouter()
-
-# ---- Models ----
-
-class Job(BaseModel):
-    id: str
-    title: str
-    company: str
-    location: str
-    url: str
-    posted_at: str  # ISO date string
-    source: str
-    job_type: str  # full-time, contract, etc.
-    tags: List[str] = []
-
-# ---- Keyword filter ----
 
 KEYWORDS = [
     "software", "engineer", "developer", "frontend", "backend", "fullstack",
@@ -37,20 +23,17 @@ KEYWORDS = [
     "agile", "manager", "lead", "senior", "junior", "intern", "mid",
 ]
 
-def matches_keywords(job: Job) -> bool:
-    """Return True if job title or tags match at least one keyword."""
-    text = f"{job.title} {' '.join(job.tags)}".lower()
-    return any(keyword in text for keyword in KEYWORDS)
-
-# ---- Normalization helpers ----
 
 def normalize(text: str) -> str:
     return re.sub(r"[^a-z0-9]", "", text.lower())
 
+
 def make_id(url: str, source: str) -> str:
+    import hashlib
     return hashlib.md5(f"{source}:{url}".encode()).hexdigest()
 
-def parse_date(raw) -> Optional[datetime]:
+
+def parse_date(raw) -> datetime | None:
     """Try to parse a date string into a timezone-aware UTC datetime."""
     if isinstance(raw, datetime):
         if raw.tzinfo is None:
@@ -82,10 +65,9 @@ def parse_date(raw) -> Optional[datetime]:
             continue
     return None
 
-# ---- Source fetchers ----
 
-async def fetch_remoteok(client: httpx.AsyncClient) -> List[Job]:
-    jobs: List[Job] = []
+async def fetch_remoteok(client) -> List[schemas.JobResponse]:
+    jobs: List[schemas.JobResponse] = []
     try:
         resp = await client.get(
             "https://remoteok.com/api",
@@ -109,7 +91,7 @@ async def fetch_remoteok(client: httpx.AsyncClient) -> List[Job]:
                 posted = datetime.now(timezone.utc)
             tags = [t.lower() for t in item.get("tags", []) if isinstance(t, str)]
             jobs.append(
-                Job(
+                schemas.JobResponse(
                     id=make_id(str(url), "remoteok"),
                     title=title,
                     company=company,
@@ -122,14 +104,12 @@ async def fetch_remoteok(client: httpx.AsyncClient) -> List[Job]:
                 )
             )
     except Exception:
-        # Log in production; silent here to keep MVP simple
         pass
     return jobs
 
 
-
-async def fetch_remotive(client: httpx.AsyncClient) -> List[Job]:
-    jobs: List[Job] = []
+async def fetch_remotive(client) -> List[schemas.JobResponse]:
+    jobs: List[schemas.JobResponse] = []
     try:
         resp = await client.get(
             "https://remotive.com/api/remote-jobs",
@@ -149,13 +129,9 @@ async def fetch_remotive(client: httpx.AsyncClient) -> List[Job]:
             posted = parse_date(date_raw)
             if posted is None:
                 posted = datetime.now(timezone.utc)
-            tags = [
-                t.lower()
-                for t in item.get("tags", [])
-                if isinstance(t, str)
-            ]
+            tags = [t.lower() for t in item.get("tags", []) if isinstance(t, str)]
             jobs.append(
-                Job(
+                schemas.JobResponse(
                     id=make_id(str(url), "remotive"),
                     title=title,
                     company=company,
@@ -172,8 +148,8 @@ async def fetch_remotive(client: httpx.AsyncClient) -> List[Job]:
     return jobs
 
 
-async def fetch_wwr(client: httpx.AsyncClient) -> List[Job]:
-    jobs: List[Job] = []
+async def fetch_wwr(client) -> List[schemas.JobResponse]:
+    jobs: List[schemas.JobResponse] = []
     try:
         resp = await client.get(
             "https://weworkremotely.com/categories/remote-programming-jobs.rss",
@@ -181,13 +157,12 @@ async def fetch_wwr(client: httpx.AsyncClient) -> List[Job]:
             timeout=20.0,
         )
         resp.raise_for_status()
-        feed = feedparser.parse(resp.content)
+        feed = __import__("feedparser").parse(resp.content)
         for entry in feed.entries:
             url = entry.get("link")
             if not url:
                 continue
             title = entry.get("title") or "Untitled"
-            # WWR titles often include company at the end
             company = "Unknown"
             location = "Remote"
             if " — " in title:
@@ -200,7 +175,7 @@ async def fetch_wwr(client: httpx.AsyncClient) -> List[Job]:
             if posted is None:
                 posted = datetime.now(timezone.utc)
             jobs.append(
-                Job(
+                schemas.JobResponse(
                     id=make_id(str(url), "wwr"),
                     title=title,
                     company=company,
@@ -217,9 +192,39 @@ async def fetch_wwr(client: httpx.AsyncClient) -> List[Job]:
     return jobs
 
 
-async def fetch_himalayas(client: httpx.AsyncClient) -> List[Job]:
-    jobs: List[Job] = []
-    # Try JSON API first, fall back to RSS
+def matches_keywords(job) -> bool:
+    title = getattr(job, "title", "")
+    tags = getattr(job, "tags", []) or []
+    text = f"{title} {' '.join(tags)}".lower()
+    return any(keyword in text for keyword in KEYWORDS)
+
+
+@router.get("/jobs/today", response_model=List[schemas.JobResponse])
+async def get_jobs_today():
+    import httpx
+
+    async with httpx.AsyncClient() as client:
+        remoteok_jobs, remotive_jobs, wwr_jobs, himalayas_jobs = await asyncio.gather(
+            fetch_remoteok(client),
+            fetch_remotive(client),
+            fetch_wwr(client),
+            _fetch_himalayas(client),
+        )
+    all_jobs = remoteok_jobs + remotive_jobs + wwr_jobs + himalayas_jobs
+    filtered = [job for job in all_jobs if matches_keywords(job)]
+    seen: set[tuple[str, str, str]] = set()
+    deduped: List[schemas.JobResponse] = []
+    for job in filtered:
+        key = (normalize(job.title), normalize(job.company), job.source)
+        if key not in seen:
+            seen.add(key)
+            deduped.append(job)
+    deduped.sort(key=lambda j: j.posted_at, reverse=True)
+    return deduped
+
+
+async def _fetch_himalayas(client) -> List[schemas.JobResponse]:
+    jobs: List[schemas.JobResponse] = []
     urls_to_try = [
         "https://himalayas.app/jobs/api/jobs",
         "https://himalayas.app/jobs.rss",
@@ -232,9 +237,16 @@ async def fetch_himalayas(client: httpx.AsyncClient) -> List[Job]:
                 timeout=20.0,
             )
             resp.raise_for_status()
-            if "application/json" in resp.headers.get("content-type", "") or url.endswith(".json"):
+            if (
+                "application/json" in resp.headers.get("content-type", "")
+                or url.endswith(".json")
+            ):
                 data = resp.json()
-                items = data if isinstance(data, list) else data.get("jobs", data.get("data", []))
+                items = (
+                    data
+                    if isinstance(data, list)
+                    else data.get("jobs", data.get("data", []))
+                )
                 for item in items:
                     if not isinstance(item, dict):
                         continue
@@ -244,9 +256,17 @@ async def fetch_himalayas(client: httpx.AsyncClient) -> List[Job]:
                     if not str(job_url).startswith("http"):
                         job_url = f"https://himalayas.app{job_url}"
                     title = item.get("title") or "Untitled"
-                    company = item.get("company_name") or item.get("company") or "Himalayas"
+                    company = (
+                        item.get("company_name")
+                        or item.get("company")
+                        or "Himalayas"
+                    )
                     location = item.get("location") or "Remote"
-                    date_raw = item.get("published_at") or item.get("date") or item.get("created_at")
+                    date_raw = (
+                        item.get("published_at")
+                        or item.get("date")
+                        or item.get("created_at")
+                    )
                     posted = parse_date(date_raw)
                     if posted is None:
                         posted = datetime.now(timezone.utc)
@@ -256,7 +276,7 @@ async def fetch_himalayas(client: httpx.AsyncClient) -> List[Job]:
                         if isinstance(t, str)
                     ]
                     jobs.append(
-                        Job(
+                        schemas.JobResponse(
                             id=make_id(str(job_url), "himalayas"),
                             title=title,
                             company=company,
@@ -269,7 +289,7 @@ async def fetch_himalayas(client: httpx.AsyncClient) -> List[Job]:
                         )
                     )
             else:
-                feed = feedparser.parse(resp.content)
+                feed = __import__("feedparser").parse(resp.content)
                 for entry in feed.entries:
                     url = entry.get("link")
                     if not url:
@@ -281,7 +301,7 @@ async def fetch_himalayas(client: httpx.AsyncClient) -> List[Job]:
                     if posted is None:
                         posted = datetime.now(timezone.utc)
                     jobs.append(
-                        Job(
+                        schemas.JobResponse(
                             id=make_id(str(url), "himalayas"),
                             title=title,
                             company=company,
@@ -293,37 +313,7 @@ async def fetch_himalayas(client: httpx.AsyncClient) -> List[Job]:
                             tags=[],
                         )
                     )
-            # If we got here successfully, break
             break
         except Exception:
             continue
     return jobs
-
-# ---- Main endpoint ----
-
-@router.get("/jobs/today", response_model=List[Job])
-async def get_jobs_today():
-    async with httpx.AsyncClient() as client:
-        remoteok_jobs, remotive_jobs, wwr_jobs, himalayas_jobs = await asyncio.gather(
-            fetch_remoteok(client),
-            fetch_remotive(client),
-            fetch_wwr(client),
-            fetch_himalayas(client),
-        )
-    all_jobs = remoteok_jobs + remotive_jobs + wwr_jobs + himalayas_jobs
-
-    # Filter by keywords
-    filtered = [job for job in all_jobs if matches_keywords(job)]
-
-    # Deduplicate by normalized title + company + source
-    seen = set()
-    deduped: List[Job] = []
-    for job in filtered:
-        key = (normalize(job.title), normalize(job.company), job.source)
-        if key not in seen:
-            seen.add(key)
-            deduped.append(job)
-
-    # Sort by posted_at descending
-    deduped.sort(key=lambda j: j.posted_at, reverse=True)
-    return deduped
