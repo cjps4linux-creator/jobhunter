@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobhunter-backend
+  labels:
+    app: jobhunter-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: jobhunter-backend
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP

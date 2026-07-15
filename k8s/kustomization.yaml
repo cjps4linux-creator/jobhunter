@@ -1,0 +1,17 @@
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - hpa.yaml
+  - configmap.yaml
+
+namespace: jobhunter
+
+images:
+  - name: jobhunter-backend
+    newName: jobhunter-backend
+    newTag: latest
+
+commonLabels:
+  app.kubernetes.io/part-of: jobhunter
+  app.kubernetes.io/managed-by: kustomize
