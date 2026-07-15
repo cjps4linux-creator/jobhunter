@@ -28,7 +28,6 @@ try:
     from rich import box
 except ImportError:
     # Fallback: try the hermes venv
-    import importlib
     sys.path.insert(0, "/home/qba/.hermes/hermes-agent/venv/lib/python3.11/site-packages")
     from rich.console import Console
     from rich.live import Live
@@ -403,29 +402,29 @@ class JobsDashboard:
 
         # Build detail content
         content = Text()
-        content.append(f"Company:  ", style=Style(color="bright_cyan", bold=True))
+        content.append("Company:  ", style=Style(color="bright_cyan", bold=True))
         content.append(f"{job.company}\n", style=Style(color="white", bold=True))
-        content.append(f"Role:     ", style=Style(color="bright_cyan", bold=True))
+        content.append("Role:     ", style=Style(color="bright_cyan", bold=True))
         content.append(f"{job.role}\n", style=Style(color="white"))
-        content.append(f"Salary:   ", style=Style(color="bright_cyan", bold=True))
+        content.append("Salary:   ", style=Style(color="bright_cyan", bold=True))
         content.append(f"{job.salary}\n", style=Style(color="green"))
-        content.append(f"Location: ", style=Style(color="bright_cyan", bold=True))
+        content.append("Location: ", style=Style(color="bright_cyan", bold=True))
         content.append(f"{job.location}\n", style=Style(color="grey85"))
-        content.append(f"Status:   ", style=Style(color="bright_cyan", bold=True))
+        content.append("Status:   ", style=Style(color="bright_cyan", bold=True))
         content.append(f"{job.status}\n", style=Style(color="yellow"))
 
         if job.url:
-            content.append(f"\nURL:      ", style=Style(color="bright_cyan", bold=True))
+            content.append("\nURL:      ", style=Style(color="bright_cyan", bold=True))
             content.append(f"{job.url}\n", style=Style(color="bright_blue", underline=True))
 
         if job.why:
-            content.append(f"\nWhy You:  ", style=Style(color="bright_magenta", bold=True))
+            content.append("\nWhy You:  ", style=Style(color="bright_magenta", bold=True))
             # Wrap long text
             wrapped = textwrap.fill(job.why, width=60)
             content.append(f"{wrapped}\n", style=Style(color="grey85"))
 
         if job.how_to_apply:
-            content.append(f"\nApply:    ", style=Style(color="bright_magenta", bold=True))
+            content.append("\nApply:    ", style=Style(color="bright_magenta", bold=True))
             wrapped = textwrap.fill(job.how_to_apply, width=60)
             content.append(f"{wrapped}\n", style=Style(color="grey85"))
 
@@ -501,7 +500,6 @@ class JobsDashboard:
 
     def render(self) -> Table:
         """Render the full dashboard layout as a Rich group."""
-        from rich.columns import Columns
         from rich.text import Text as RText
 
         layout_parts = []

@@ -2,9 +2,8 @@
 # Lightweight standalone job dashboard server
 # Runs: uvicorn server:app --host 0.0.0.0 --port 3000
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 import feedparser
@@ -14,7 +13,6 @@ import yaml
 import asyncio
 from datetime import datetime, timezone
 from pathlib import Path
-import os
 from playwright.async_api import async_playwright
 
 app = FastAPI(title="JobHunter Daily Feed")
@@ -31,7 +29,6 @@ CONFIG_PATH = Path(__file__).parent / "job_config.yaml"
 FRONTEND_PATH = Path(__file__).parent / "index.html"
 
 # --- Config loader ---
-import yaml
 
 def load_config():
     if CONFIG_PATH.exists():

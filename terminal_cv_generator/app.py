@@ -337,7 +337,7 @@ def render_summary(files):
     if all_paths:
         folder = os.path.dirname(all_paths[0])
         console.print(f"\n[bold cyan]📂 Files saved to:[/bold cyan] {folder}")
-        console.print(f"[dim]   Open any .md file to view your tailored document.[/dim]")
+        console.print("[dim]   Open any .md file to view your tailored document.[/dim]")
 
 
 # ─── Core Generation (with real progress bar) ────────────────────────────────
