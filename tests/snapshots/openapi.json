@@ -47,17 +47,18 @@
     },
     "/metrics": {
       "get": {
-        "summary": "Metrics",
-        "operationId": "metrics_metrics_get",
+        "tags": [
+          "metrics"
+        ],
+        "summary": "Return application metrics",
+        "operationId": "get_metrics_metrics_get",
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
-              "application/json": {
+              "text/plain": {
                 "schema": {
-                  "additionalProperties": true,
-                  "type": "object",
-                  "title": "Response Metrics Metrics Get"
+                  "type": "string"
                 }
               }
             }

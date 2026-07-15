@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.auth.router import router as auth_router
 from app.health import router as health_router
 from app.metrics import MetricsMiddleware
-from app.metrics import router as metrics_router
+from app.metrics import metrics_router as metrics_router
 from app.observability import CorrelationMiddleware
 from app.routers import jobs
 

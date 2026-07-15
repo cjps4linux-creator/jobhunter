@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from app.main import app
 
 client = TestClient(app)
-SNAPSHOT = Path(__file__).resolve().parent / "snapshots" / "openapi.json"
+SNAPSHOT = Path(__file__).resolve().parents[2] / "tests" / "snapshots" / "openapi.json"
 
 
 def test_openapi_contract_matches_snapshot():

@@ -1,0 +1,32 @@
+groups:
+  - name: jobhunter.alerts
+    rules:
+      - alert: JobHunterHighErrorRate
+        expr: |
+          sum(rate(jobhunter_request_errors_total[5m])) > 0.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "JobHunter error rate is elevated"
+          description: "Error rate for JobHunter has exceeded 5 errors per second for 2 minutes."
+
+      - alert: JobHunterSlowLatency
+        expr: |
+          jobhunter_request_latency_ms_last_request > 500
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "JobHunter latency is high"
+          description: "Last measured latency exceeded 500ms for more than 1 minute."
+
+      - alert: JobHunterServiceDown
+        expr: |
+          sum(rate(jobhunter_request_total[1m])) == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "JobHunter has no traffic"
+          description: "No requests observed for 2 minutes. Service may be down or unreachable."
