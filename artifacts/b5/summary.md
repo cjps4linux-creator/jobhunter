@@ -40,8 +40,8 @@ observability:
 ```text
 http://localhost:9090
 http://localhost:3000
-user:admin
-password:admin
+# Use environment variables or a secrets manager for Grafana admin credentials.
+# Do not commit default passwords or real credentials to the repository.
 ```
 
 security:

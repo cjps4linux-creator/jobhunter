@@ -1,0 +1,10 @@
+
+Name    Enabled DefaultInboundAction DefaultOutboundAction AllowInboundRules AllowLocalFirewallRules AllowLocalIPsecRul
+                                                                                                     es                
+----    ------- -------------------- --------------------- ----------------- ----------------------- ------------------
+Domain  True    NotConfigured        NotConfigured         NotConfigured     NotConfigured           NotConfigured     
+Private True    NotConfigured        NotConfigured         NotConfigured     NotConfigured           NotConfigured     
+Public  True    NotConfigured        NotConfigured         NotConfigured     NotConfigured           NotConfigured     
+
+
+
