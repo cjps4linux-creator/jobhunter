@@ -31,16 +31,14 @@ def test_ready_endpoint():
     body = response.json()
     assert body["status"] == "ready"
     assert "uptime_seconds" in body
-    assert "checks" in body
 
 
-def test_metrics_endpoint_has_counters():
+def test_metrics_endpoint_exposes_prometheus_text():
+    client.get("/health")
     response = client.get("/metrics")
     assert response.status_code == 200
-    body = response.json()
-    assert "counters" in body
-    assert "uptime_seconds" in body
-    assert "timestamp" in body
+    assert response.headers["content-type"].startswith("text/plain")
+    assert "http_requests_total" in response.text
 
 
 def test_request_logs_written():

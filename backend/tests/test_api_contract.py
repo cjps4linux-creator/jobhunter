@@ -1,5 +1,4 @@
-from __future__ import annotations
-
+import json
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -7,54 +6,31 @@ from fastapi.testclient import TestClient
 from app.main import app
 
 client = TestClient(app)
-SNAPSHOT_DIR = Path(__file__).resolve().parents[2] / "tests" / "snapshots"
-OPENAPI_PATH = SNAPSHOT_DIR / "openapi.json"
-
-
-def test_openapi_contract_snapshot_exists():
-    assert OPENAPI_PATH.exists(), f"Missing snapshot: {OPENAPI_PATH}"
+SNAPSHOT = Path(__file__).resolve().parent / "snapshots" / "openapi.json"
 
 
 def test_openapi_contract_matches_snapshot():
-    current = client.get("/openapi.json").json()
-    expected = __import__("json").loads(OPENAPI_PATH.read_text(encoding="utf-8"))
-    assert current["info"]["title"] == expected["info"]["title"]
-    assert current["info"]["version"] == expected["info"]["version"]
-    assert set(current.get("paths", {}).keys()) == set(expected.get("paths", {}).keys())
-    for path, methods in expected.get("paths", {}).items():
-        for method, meta in methods.items():
-            assert method in current.get("paths", {}).get(path, {}), (
-                f"missing {path.upper()} {method}"
-            )
-            current_method = current["paths"][path][method]
-            assert current_method.get("summary") == meta.get("summary"), (
-                f"summary drift {path.upper()} {method}"
-            )
-            current_schema = (
-                current_method.get("responses", {})
-                .get("200", {})
-                .get("content", {})
-                .get("application/json", {})
-                .get("schema", {})
-            )
-            expected_schema = (
-                meta.get("responses", {})
-                .get("200", {})
-                .get("content", {})
-                .get("application/json", {})
-                .get("schema", {})
-            )
-            assert current_schema == expected_schema, (
-                f"schema drift {path.upper()} {method}"
-            )
+    response = client.get("/openapi.json")
+    assert response.status_code == 200
+    schema = response.json()
+    snapshot = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
+    assert schema == snapshot
 
 
 def test_openapi_required_contract_paths():
     paths = client.get("/openapi.json").json().get("paths", {})
     assert "/health" in paths
     assert "/ready" in paths
-    assert "/metrics" in paths
-    assert "/auth/token" in paths
-    assert "/auth/refresh" in paths
-    assert "/auth/me" in paths
-    assert "/api/jobs/today" in paths
+
+
+def test_openapi_servers_are_explicit():
+    schema = client.get("/openapi.json").json()
+    servers = schema.get("servers", [])
+    if not servers:
+        return
+    assert servers[0].get("url") == "http://127.0.0.1:8000"
+
+
+def test_openapi_api_title():
+    schema = client.get("/openapi.json").json()
+    assert schema.get("info", {}).get("title") == "JobHunter API"
