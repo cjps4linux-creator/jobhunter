@@ -16,9 +16,10 @@ client = TestClient(app)
 @pytest.fixture(autouse=True)
 def _reset_auth_state():
     from app.auth import router as ar
-    ar._REFRESH_JTI.clear()
+
+    ar._REFRESH_JTI = set()
     yield
-    ar._REFRESH_JTI.clear()
+    ar._REFRESH_JTI = set()
 
 
 def test_login_returns_tokens():

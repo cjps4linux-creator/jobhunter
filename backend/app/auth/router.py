@@ -88,7 +88,7 @@ _USERS = {
         "disabled": False,
     },
 }
-_REFRESH_JTI: dict[str, str] = {}
+_REFRESH_JTI: set[str] = set()
 
 
 def _get_user(username: str) -> dict | None:
@@ -130,7 +130,7 @@ async def login(username: str = Form(), password: str = Form()):
     jti = "rt-" + datetime.now(timezone.utc).isoformat()
     access = _create_access_token(user["username"])
     refresh = _create_refresh_token(user["username"], jti)
-    _REFRESH_JTI[user["username"]] = jti
+    _REFRESH_JTI.add(jti)
     return Token(access_token=access, refresh_token=refresh)
 
 
@@ -141,17 +141,17 @@ async def refresh(refresh_token: str = Body(embed=True)):
         username = payload.get("sub")
         jti = payload.get("jti")
         token_type = payload.get("type")
-        if not username or token_type != "refresh" or not jti:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid refresh token",
-            )
-        stored_jti = _REFRESH_JTI.get(username)
-        if stored_jti != jti:
+        if (
+            not username
+            or token_type != "refresh"
+            or not jti
+            or jti not in _REFRESH_JTI
+        ):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Refresh token revoked or already used",
             )
+        _REFRESH_JTI.discard(jti)
         user = _get_user(username)
         if not user:
             raise HTTPException(
@@ -161,8 +161,10 @@ async def refresh(refresh_token: str = Body(embed=True)):
         new_jti = "rt-" + datetime.now(timezone.utc).isoformat()
         access = _create_access_token(user["username"])
         refresh = _create_refresh_token(user["username"], new_jti)
-        _REFRESH_JTI[user["username"]] = new_jti
+        _REFRESH_JTI.add(new_jti)
         return Token(access_token=access, refresh_token=refresh)
+    except HTTPException:
+        raise
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
