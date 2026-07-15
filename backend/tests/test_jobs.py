@@ -7,12 +7,11 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.routers.jobs import (
-    matches_keywords,
     make_id,
+    matches_keywords,
     normalize,
     parse_date,
 )
-
 
 client = TestClient(app)
 
