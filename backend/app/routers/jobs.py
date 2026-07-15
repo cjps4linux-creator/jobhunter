@@ -5,6 +5,7 @@ import re
 from datetime import datetime, timezone
 from typing import List
 
+import httpx
 from fastapi import APIRouter
 
 from app import schemas
@@ -201,8 +202,6 @@ def matches_keywords(job) -> bool:
 
 @router.get("/jobs/today", response_model=List[schemas.JobResponse])
 async def get_jobs_today():
-    import httpx
-
     async with httpx.AsyncClient() as client:
         remoteok_jobs, remotive_jobs, wwr_jobs, himalayas_jobs = await asyncio.gather(
             fetch_remoteok(client),

@@ -7,7 +7,8 @@ from fastapi.testclient import TestClient
 from app.main import app
 
 client = TestClient(app)
-OPENAPI_PATH = Path(__file__).resolve().parents[2] / "tests" / "snapshots" / "openapi.json"
+SNAPSHOT_DIR = Path(__file__).resolve().parents[2] / "tests" / "snapshots"
+OPENAPI_PATH = SNAPSHOT_DIR / "openapi.json"
 
 
 def test_openapi_contract_snapshot_exists():
@@ -22,12 +23,30 @@ def test_openapi_contract_matches_snapshot():
     assert set(current.get("paths", {}).keys()) == set(expected.get("paths", {}).keys())
     for path, methods in expected.get("paths", {}).items():
         for method, meta in methods.items():
-            assert method in current.get("paths", {}).get(path, {}), f"missing {path.upper()} {method}"
+            assert method in current.get("paths", {}).get(path, {}), (
+                f"missing {path.upper()} {method}"
+            )
             current_method = current["paths"][path][method]
-            assert current_method.get("summary") == meta.get("summary"), f"summary drift {path.upper()} {method}"
-            current_schema = current_method.get("responses", {}).get("200", {}).get("content", {}).get("application/json", {}).get("schema", {})
-            expected_schema = meta.get("responses", {}).get("200", {}).get("content", {}).get("application/json", {}).get("schema", {})
-            assert current_schema == expected_schema, f"schema drift {path.upper()} {method}"
+            assert current_method.get("summary") == meta.get("summary"), (
+                f"summary drift {path.upper()} {method}"
+            )
+            current_schema = (
+                current_method.get("responses", {})
+                .get("200", {})
+                .get("content", {})
+                .get("application/json", {})
+                .get("schema", {})
+            )
+            expected_schema = (
+                meta.get("responses", {})
+                .get("200", {})
+                .get("content", {})
+                .get("application/json", {})
+                .get("schema", {})
+            )
+            assert current_schema == expected_schema, (
+                f"schema drift {path.upper()} {method}"
+            )
 
 
 def test_openapi_required_contract_paths():
