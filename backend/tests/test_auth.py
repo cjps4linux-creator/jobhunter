@@ -1,10 +1,24 @@
 from __future__ import annotations
 
+import pytest
 from fastapi.testclient import TestClient
+from jose import jwt
 
+from app.config import get_settings
 from app.main import app
 
 client = TestClient(app)
+settings = get_settings()
+
+client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def _reset_auth_state():
+    from app.auth import router as ar
+    ar._REFRESH_JTI.clear()
+    yield
+    ar._REFRESH_JTI.clear()
 
 
 def test_login_returns_tokens():
@@ -40,7 +54,12 @@ def test_refresh_rotates_tokens():
     login = client.post("/auth/token", data=payload).json()
     refresh = login["refresh_token"]
     body = client.post("/auth/refresh", json={"refresh_token": refresh}).json()
-    assert body["refresh_token"] != refresh
+    new_refresh = body["refresh_token"]
+    assert new_refresh != refresh
+    old_jti = jwt.get_unverified_claims(refresh).get("jti")
+    new_jti = jwt.get_unverified_claims(new_refresh).get("jti")
+    assert old_jti != new_jti
+    assert new_jti is not None
 
 
 def test_reused_refresh_token_is_rejected():
