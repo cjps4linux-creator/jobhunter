@@ -1,11 +1,11 @@
-# jobhunter
+# JobHunter
 
 Lightweight job-matching feed server with configurable source filters and dashboard.
 
-## Behavior
+## Capabilities
 - FastAPI server serving filtered remote job feeds
-- Configurable sources, keywords, locations, exclusions via `job_config.yaml`
-- Curated dashboard script `curated_jobs_dashboard.py`
+- Configurable sources, keywords, locations, and exclusions via `job_config.yaml`
+- Curated dashboard script: `curated_jobs_dashboard.py`
 - CORS-enabled endpoints for frontend consumption
 
 ## Stack
@@ -15,13 +15,12 @@ Lightweight job-matching feed server with configurable source filters and dashbo
 - feedparser
 - PyYAML
 
-## Status
-Functional stub
+## Current State
+Core API and dashboard tooling are implemented. Persistence layer and dedicated frontend scaffold are planned for a subsequent release.
 
 ## Notes
-- Not production-hardened
-- Missing persistent storage and frontend scaffold
-- Intended as Hermes job-matching prototype layer
+- Intended as the Hermes job-matching prototype layer
+- Designed for local deployment and constrained-host operation
 
 ## Author
 Conrad CJ Wilson

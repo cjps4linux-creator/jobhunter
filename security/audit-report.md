@@ -2,7 +2,7 @@
 
 Date: 2026-07-15
 Auditor: ATHENA X / Conrad CJ Wilson
-Scope: local Windows 11 Pro host, jobhunter repository, GitHub account posture
+Scope: local Windows 11 Pro host, `jobhunter` repository, and GitHub account posture
 Severity: LOW / MEDIUM / HIGH
 
 ---
@@ -72,8 +72,8 @@ Severity: LOW / MEDIUM / HIGH
 - Severity: MEDIUM
 - Enable secret scanning in GitHub Settings → Code security and analysis
 - Enable vulnerability alerts in GitHub Settings → Code security and analysis
-- Add `SECURITY.md` to each repository for public vulnerability-reporting contact path
-- Consider enabling branch protection rules requiring status checks before merge
+- Add `SECURITY.md` to each repository as the public vulnerability-reporting contact path
+- Consider enabling branch protection rules that require status checks before merging
 
 ---
 
@@ -103,7 +103,7 @@ Severity: LOW / MEDIUM / HIGH
 - Updates current
 
 ### Requires improvement
-- Last full scan age is very old; run an on-demand full scan
+- The last full scan is very old; run a full on-demand scan
 - Standardize local account lockout policy and screen lock behavior
 
 ---
