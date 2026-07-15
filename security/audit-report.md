@@ -121,3 +121,22 @@ Severity: LOW / MEDIUM / HIGH
 
 - Secured repository by removing placeholder credentials from public-facing documentation and enforcing fail-closed secret handling in application configuration.
 - Validated endpoint, container, and localhost-scoped service posture with live health checks and port audit.
+
+---
+
+## 8. Local Stale Image Inventory
+
+### Verified
+- `docker images` review performed on local Docker Desktop cache.
+
+### Finding
+- Severity: LOW
+- Image: `tensorflow/tensorflow:latest` (ID: `f325279f01a3`, Created: 2026-03-07)
+- Status: **Stale/unreferenced** — not referenced in any active Dockerfile or compose file in the vault
+- Risk: Medium-High if executed; low risk while simply present in cache
+- Action: Left in cache per user decision. Documented here for traceability.
+
+### Recommendation
+- Delete when ready: `docker rmi tensorflow/tensorflow:latest`
+- If TensorFlow is needed again, use a pinned slim/cpu-only variant in an explicit project Dockerfile with CI scanning
+- Monitor Docker Desktop image cache regularly for unused large ML images
