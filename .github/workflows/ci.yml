@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install pytest pytest-cov
+      - run: pip install pytest pytest-cov pyyaml -r backend/requirements.txt
       - run: pytest -q
 
   security-scan:
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Trivy filesystem scan (blocks on HIGH/CRITICAL)
-        uses: aquasecurity/trivy-action@0.24.0
+        uses: aquasecurity/trivy-action@0.36.0
         with:
           scan-type: 'fs'
           scanners: 'vuln,secret,misconfig'
