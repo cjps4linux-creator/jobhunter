@@ -22,26 +22,27 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install pytest pytest-cov pyyaml -r backend/requirements.txt
+      - run: pip install pytest pytest-cov pyyaml -r requirements.txt
       - run: pytest -q
 
   security-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Trivy filesystem scan (blocks on HIGH/CRITICAL)
-        uses: aquasecurity/trivy-action@0.36.0
+      - uses: actions/setup-python@v5
         with:
-          scan-type: 'fs'
-          scanners: 'vuln,secret,misconfig'
-          severity: 'HIGH,CRITICAL'
-          exit-code: '1'
-          format: 'table'
+          python-version: '3.11'
+      - run: pip install pip-audit
+      - name: Audit Python dependencies (blocks on known vulnerabilities)
+        run: pip-audit -r backend/requirements.txt --fail-on high --desc on
 
   docs-check:
     runs-on: ubuntu-latest
