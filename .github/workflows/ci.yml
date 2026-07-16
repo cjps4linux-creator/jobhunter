@@ -42,7 +42,7 @@ jobs:
           python-version: '3.11'
       - run: pip install pip-audit
       - name: Audit Python dependencies (blocks on known vulnerabilities)
-        run: pip-audit -r backend/requirements.txt --fail-on high --desc on
+        run: pip-audit -r backend/requirements.txt --desc on
 
   docs-check:
     runs-on: ubuntu-latest
