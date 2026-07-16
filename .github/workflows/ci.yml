@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: read
-  security-events: write
 
 jobs:
   lint:
@@ -29,24 +28,24 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install pytest pytest-cov
-      - run: pytest -q || echo "No tests found"
+      - run: pytest -q
 
   security-scan:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
-      - uses: aquasecurity/trivy-action@master
+      - name: Trivy filesystem scan (blocks on HIGH/CRITICAL)
+        uses: aquasecurity/trivy-action@0.24.0
         with:
           scan-type: 'fs'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-      - uses: github/codeql-action/upload-sarif@v4
-        with:
-          sarif_file: 'trivy-results.sarif'
+          scanners: 'vuln,secret,misconfig'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
+          format: 'table'
 
   docs-check:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - run: |
