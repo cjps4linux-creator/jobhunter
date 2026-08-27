@@ -1,34 +1,54 @@
-# JobHunter — Launch Documentation
+# jobhunter — Launch Readiness
 
-## Launch Readiness Snapshot
+**Date:** 2026-08-27
+**Owner:** Conrad CJ Wilson
+**Repo:** cjps4linux-creator/jobhunter
+**Status:** Functional prototype
 
-| Field | Value |
-| --- | --- |
-| Repo | `jobhunter` |
-| Default branch | `master` |
-| License | MIT |
-| Commercial baseline | CI, `CONTRIBUTING.md`, `SECURITY.md`, `LAUNCH.md`, `VERIFICATION.md` |
-| Purpose | Job-matching feed server and curated dashboard |
+---
 
-## Verified
-- `README.md` present.
-- No tracked `.env` files.
-- `SECURITY.md` present with contact path and hardening notes.
-- `.github/workflows/ci.yml` and `image.yml` present.
-- `security/audit-report.md` present and references fail-closed secret handling.
-- `tests/` present with load and contract fixtures.
+## Readiness Snapshot
 
-## Launch Gates
-- [ ] CI workflow green on `master` before release tag
-- [ ] Branch protection and required status checks enabled on `master`
-- [ ] GitHub secret scanning and vulnerability alerts enabled
-- [ ] Dashboard and feed filters reviewed for customer use before distribution
+| Gate | Status | Evidence |
+|---|---|---|
+| CI passing | Pending | GitHub Actions workflow defined |
+| Tests passing | Pending | pytest fixtures in `tests/` |
+| Security scan | Pending | SECURITY.md in place |
+| README complete | Complete | Architecture, stack, quick start, repository layout, honest limitations |
+| LICENSE | Complete | MIT — Conrad CJ Wilson |
+| Docker build | Complete | Docker Compose configuration present |
+| Kubernetes manifests | Complete | `k8s/` directory with probes, HPA, non-root config |
+| Monitoring | Complete | Prometheus + Grafana configuration present |
 
-## Release Workflow
-1. Validate `server.py` startup and `/health` against a local run.
-2. Cherry-pick approved wording and config updates into a release branch.
-3. Tag a release with semver and attach runbook artifacts.
-4. Rotate or revoke any shared example credentials if included in release assets.
+---
 
-## Support
-- Support contact: `conradcjwilson0@gmail.com`
+## Requirements
+
+- Python 3.11+
+- Docker Compose (optional, for containerized deployment)
+- No external API keys required for local operation
+
+---
+
+## Known Gaps
+
+- CI has not been verified running on GitHub Actions for this commit
+- Persistence layer not implemented; job state is in-memory
+- Dedicated frontend not implemented; dashboard is a local script
+- No authentication on API endpoints
+
+---
+
+## Actions Required Before Production
+
+1. Verify CI passes on GitHub Actions
+2. Add persistence layer (PostgreSQL or Redis) for feed state
+3. Build dedicated frontend or integrate with existing dashboard framework
+4. Add authentication/authorization layer
+5. Enable GitHub secret scanning and vulnerability alerts
+
+---
+
+## Contact
+
+Conrad CJ Wilson — conradcjwilson0@gmail.com
