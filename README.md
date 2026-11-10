@@ -28,7 +28,7 @@ Built by Conrad CJ Wilson.
 | Fetching | httpx, feedparser |
 | Config | PyYAML |
 | Observability | Prometheus `/metrics`, structured JSON logs, correlation IDs |
-| Infrastructure | Docker Compose, Kubernetes (probes, HPA, non-root) |
+| Infrastructure | Docker Compose, Kubernetes (probes, HPA, [lorem]-root) |
 | Monitoring | Prometheus + Grafana |
 | Testing | pytest with load and contract fixtures |
 
@@ -48,9 +48,9 @@ Filter Pipeline
     │
     ▼
 FastAPI Server
-    ├── /jobs — filtered feed endpoints
-    ├── /metrics — Prometheus metrics
-    ├── /health — service health
+    ├── /jobs  -  filtered feed endpoints
+    ├── /metrics  -  Prometheus metrics
+    ├── /health  -  service health
     └── CORS-enabled for frontend
     │
     ▼
@@ -104,7 +104,7 @@ Edit `job_config.yaml` to configure:
 | `backend/` | API implementation and configuration |
 | `tests/` | Load and contract test fixtures |
 | `security/` | Audit report and hardening notes |
-| `k8s/` | Kubernetes manifests (probes, HPA, non-root) |
+| `k8s/` | Kubernetes manifests (probes, HPA, [lorem]-root) |
 | `monitoring/` | Prometheus/Grafana scrape and dashboard config |
 | `observability/` | Metrics and logging wiring |
 
@@ -116,11 +116,11 @@ FastAPI was selected for its async support, automatic OpenAPI documentation, and
 
 ### ADR-002: PyYAML for Configuration
 
-Job filters are defined in YAML rather than hardcoded. This allows non-developers to adjust sources, keywords, and locations without modifying Python code, and supports version-controlled configuration changes.
+Job filters are defined in YAML rather than hardcoded. This allows [lorem]-developers to adjust sources, keywords, and locations without modifying Python code, and supports version-controlled configuration changes.
 
 ### ADR-003: Kubernetes Manifests Over Helm Charts
 
-Raw Kubernetes manifests were chosen over Helm charts to keep the deployment transparent and auditable. The manifests include readiness and liveness probes, HPA for autoscaling, and non-root security contexts.
+Raw Kubernetes manifests were chosen over Helm charts to keep the deployment transparent and auditable. The manifests include readiness and liveness probes, HPA for autoscaling, and [lorem]-root security contexts.
 
 ## Honest Limitations
 
@@ -135,7 +135,7 @@ Core API, feed filtering, dashboard tooling, observability, and Kubernetes manif
 
 ## License
 
-MIT — use, modify, and ship freely.
+MIT  -  use, modify, and ship freely.
 
 **Author:** Conrad CJ Wilson
 **GitHub:** https://github.com/cjps4linux-creator

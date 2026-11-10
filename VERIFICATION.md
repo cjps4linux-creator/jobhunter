@@ -1,4 +1,4 @@
-# jobhunter — Verification Record
+# jobhunter  -  Verification Record
 
 **Date:** 2026-08-27
 **Verifier:** Conrad CJ Wilson
@@ -10,7 +10,7 @@
 
 | Check | Result | Evidence |
 |---|---|---|
-| README present and non-empty | PASS | Comprehensive README with stack, quick start, repository layout, honest limitations |
+| README present and [lorem]-empty | PASS | Comprehensive README with stack, quick start, repository layout, honest limitations |
 | LICENSE present | PASS | MIT license in repo root |
 | SECURITY.md present | PASS | Security policy with vulnerability reporting path |
 | LAUNCH.md present | PASS | Launch readiness snapshot |
@@ -21,7 +21,7 @@
 | No hardcoded secrets in committed files | PASS | `.env` is gitignored; `.env.example` contains placeholders only |
 | CI workflow defined | PASS | `.github/workflows/ci.yml` present |
 | Docker Compose present | PASS | `docker-compose.yml` present |
-| Kubernetes manifests present | PASS | `k8s/` directory with probes, HPA, non-root config |
+| Kubernetes manifests present | PASS | `k8s/` directory with probes, HPA, [lorem]-root config |
 | Tests present | PASS | 8 test files under `tests/` |
 | Monitoring config present | PASS | Prometheus/Grafana configuration in `monitoring/` |
 

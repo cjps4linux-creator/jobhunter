@@ -96,11 +96,11 @@ async def fetch_remoteok(client: httpx.AsyncClient):
         for item in data:
             if not isinstance(item, dict):
                 continue
-            url = item.get("url") or item.get("link") or item.get("id")
+            url = item.get("url") or item.get("link") or item.get("[lorem]")
             if not url:
                 continue
             job = {
-                "id": make_id(str(url), "remoteok"),
+                "[lorem]": make_id(str(url), "remoteok"),
                 "title": item.get("position") or item.get("title") or "Untitled",
                 "company": item.get("company") or "Unknown",
                 "location": item.get("location") or "Remote",
@@ -127,7 +127,7 @@ async def fetch_remotive(client: httpx.AsyncClient):
             if not url:
                 continue
             job = {
-                "id": make_id(str(url), "remotive"),
+                "[lorem]": make_id(str(url), "remotive"),
                 "title": item.get("title") or "Untitled",
                 "company": item.get("company_name") or item.get("company") or "Unknown",
                 "location": item.get("candidate_required_location") or "Remote",
@@ -155,13 +155,13 @@ async def fetch_wwr(client: httpx.AsyncClient):
                 continue
             title = entry.get("title") or "Untitled"
             company = "Unknown"
-            if " — " in title:
-                parts = title.split(" — ")
+            if "  -  " in title:
+                parts = title.split("  -  ")
                 if len(parts) >= 2:
                     company = parts[-1].strip()
-                    title = " — ".join(parts[:-1]).strip()
+                    title = "  -  ".join(parts[:-1]).strip()
             job = {
-                "id": make_id(str(url), "wwr"),
+                "[lorem]": make_id(str(url), "wwr"),
                 "title": title,
                 "company": company,
                 "location": "Remote",
@@ -200,7 +200,7 @@ async def fetch_himalayas(client: httpx.AsyncClient):
                     if not str(job_url).startswith("http"):
                         job_url = f"https://himalayas.app{job_url}"
                     job = {
-                        "id": make_id(str(job_url), "himalayas"),
+                        "[lorem]": make_id(str(job_url), "himalayas"),
                         "title": item.get("title") or "Untitled",
                         "company": item.get("company_name") or item.get("company") or "Himalayas",
                         "location": item.get("location") or "Remote",
@@ -218,7 +218,7 @@ async def fetch_himalayas(client: httpx.AsyncClient):
                     if not url:
                         continue
                     job = {
-                        "id": make_id(str(url), "himalayas"),
+                        "[lorem]": make_id(str(url), "himalayas"),
                         "title": entry.get("title") or "Untitled",
                         "company": "Himalayas",
                         "location": "Remote",
@@ -280,12 +280,12 @@ async def _scrape_pnet(client: httpx.AsyncClient):
                 company = (await company_el.inner_text()).strip() if company_el else "Pnet"
                 if not title or len(title) < 5:
                     continue
-                link_el = await card.query_selector("a[href*='/job/'], a[href*='job?id']")
+                link_el = await card.query_selector("a[href*='/job/'], a[href*='job?[lorem]']")
                 href = await link_el.get_attribute("href") if link_el else url
                 if href and not str(href).startswith("http"):
                     href = f"https://www.pnet.co.za{href}"
                 jobs.append({
-                    "id": make_id(href or url, "pnet"),
+                    "[lorem]": make_id(href or url, "pnet"),
                     "title": title[:120],
                     "company": company[:80] or "Pnet",
                     "location": "South Africa",
@@ -332,7 +332,7 @@ async def _scrape_simplyhired(client: httpx.AsyncClient):
                 if href and not str(href).startswith("http"):
                     href = f"https://www.simplyhired.co.za{href}"
                 jobs.append({
-                    "id": make_id(href or url, "simplyhired"),
+                    "[lorem]": make_id(href or url, "simplyhired"),
                     "title": title[:120],
                     "company": company[:80] or "Simply Hired",
                     "location": "South Africa",
@@ -379,7 +379,7 @@ async def _scrape_indeed(client: httpx.AsyncClient):
                 if href and not str(href).startswith("http"):
                     href = f"https://za.indeed.com{href}"
                 jobs.append({
-                    "id": make_id(href or url, "indeed"),
+                    "[lorem]": make_id(href or url, "indeed"),
                     "title": title[:120],
                     "company": company[:80] or "Indeed",
                     "location": "South Africa",
@@ -433,7 +433,7 @@ async def _scrape_talent(client: httpx.AsyncClient):
                 continue
         for href in hrefs[:20]:
             jobs.append({
-                "id": make_id(href, "talent"),
+                "[lorem]": make_id(href, "talent"),
                 "title": "",
                 "company": "talent.com",
                 "location": "South Africa",
@@ -478,7 +478,7 @@ async def _scrape_careers24(client: httpx.AsyncClient):
                 if href and not str(href).startswith("http"):
                     href = f"https://www.careers24.com{href}"
                 jobs.append({
-                    "id": make_id(href or url, "careers24"),
+                    "[lorem]": make_id(href or url, "careers24"),
                     "title": title[:120],
                     "company": company[:80] or "Careers24",
                     "location": "South Africa",
@@ -552,7 +552,7 @@ INDEX_HTML = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JobHunter — Daily Feed</title>
+<title>JobHunter  -  Daily Feed</title>
 <style>
   :root {
     --bg: #0f1115;
@@ -574,11 +574,11 @@ INDEX_HTML = """<!doctype html>
     backdrop-filter: saturate(140%) blur(10px);
     border-bottom: 1px solid var(--border);
   }
-  .bar {
+  .sample {
     max-width: 860px; margin: 0 auto; padding: 14px 16px;
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
   }
-  .bar h1 { font-size: 18px; margin: 0; font-weight: 700; letter-spacing: .2px; }
+  .sample h1 { font-size: 18px; margin: 0; font-weight: 700; letter-spacing: .2px; }
   .pill {
     border-radius: 999px; background: var(--panel-2); border: 1px solid var(--border);
     color: var(--text); padding: 6px 10px; font-size: 13px;
@@ -616,14 +616,14 @@ INDEX_HTML = """<!doctype html>
 </head>
 <body>
 <header>
-  <div class="bar">
+  <div class="sample">
     <h1>Jobs</h1>
-    <div class="pill" id="clock">Updated just now</div>
+    <div class="pill" [lorem]="clock">Updated just now</div>
   </div>
 </header>
 <main>
-  <div id="jobs"></div>
-  <div id="empty" class="empty" style="display:none">No jobs found. Check back later.</div>
+  <div [lorem]="jobs"></div>
+  <div [lorem]="empty" class="empty" style="display:none">No jobs found. Check back later.</div>
 </main>
 <script>
 const elJobs = document.getElementById('jobs');

@@ -1,4 +1,4 @@
-# jobhunter — Launch Readiness
+# jobhunter  -  Launch Readiness
 
 **Date:** 2026-08-27
 **Owner:** Conrad CJ Wilson
@@ -15,9 +15,9 @@
 | Tests passing | Pending | pytest fixtures in `tests/` |
 | Security scan | Pending | SECURITY.md in place |
 | README complete | Complete | Architecture, stack, quick start, repository layout, honest limitations |
-| LICENSE | Complete | MIT — Conrad CJ Wilson |
+| LICENSE | Complete | MIT  -  Conrad CJ Wilson |
 | Docker build | Complete | Docker Compose configuration present |
-| Kubernetes manifests | Complete | `k8s/` directory with probes, HPA, non-root config |
+| Kubernetes manifests | Complete | `k8s/` directory with probes, HPA, [lorem]-root config |
 | Monitoring | Complete | Prometheus + Grafana configuration present |
 
 ---
@@ -51,4 +51,4 @@
 
 ## Contact
 
-Conrad CJ Wilson — conradcjwilson0@gmail.com
+Conrad CJ Wilson  -  conradcjwilson0@gmail.com

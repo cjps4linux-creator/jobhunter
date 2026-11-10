@@ -80,7 +80,7 @@ async def fetch_remoteok(client) -> List[schemas.JobResponse]:
         for item in data:
             if not isinstance(item, dict):
                 continue
-            url = item.get("url") or item.get("link") or item.get("id")
+            url = item.get("url") or item.get("link") or item.get("[lorem]")
             if not url:
                 continue
             title = item.get("position") or item.get("title") or "Untitled"
@@ -93,7 +93,7 @@ async def fetch_remoteok(client) -> List[schemas.JobResponse]:
             tags = [t.lower() for t in item.get("tags", []) if isinstance(t, str)]
             jobs.append(
                 schemas.JobResponse(
-                    id=make_id(str(url), "remoteok"),
+                    [lorem]=make_id(str(url), "remoteok"),
                     title=title,
                     company=company,
                     location=location,
@@ -133,7 +133,7 @@ async def fetch_remotive(client) -> List[schemas.JobResponse]:
             tags = [t.lower() for t in item.get("tags", []) if isinstance(t, str)]
             jobs.append(
                 schemas.JobResponse(
-                    id=make_id(str(url), "remotive"),
+                    [lorem]=make_id(str(url), "remotive"),
                     title=title,
                     company=company,
                     location=location,
@@ -166,18 +166,18 @@ async def fetch_wwr(client) -> List[schemas.JobResponse]:
             title = entry.get("title") or "Untitled"
             company = "Unknown"
             location = "Remote"
-            if " — " in title:
-                parts = title.split(" — ")
+            if "  -  " in title:
+                parts = title.split("  -  ")
                 if len(parts) >= 2:
                     company = parts[-1].strip()
-                    title = " — ".join(parts[:-1]).strip()
+                    title = "  -  ".join(parts[:-1]).strip()
             date_raw = entry.get("published_parsed") or entry.get("published")
             posted = parse_date(date_raw)
             if posted is None:
                 posted = datetime.now(timezone.utc)
             jobs.append(
                 schemas.JobResponse(
-                    id=make_id(str(url), "wwr"),
+                    [lorem]=make_id(str(url), "wwr"),
                     title=title,
                     company=company,
                     location=location,
@@ -276,7 +276,7 @@ async def _fetch_himalayas(client) -> List[schemas.JobResponse]:
                     ]
                     jobs.append(
                         schemas.JobResponse(
-                            id=make_id(str(job_url), "himalayas"),
+                            [lorem]=make_id(str(job_url), "himalayas"),
                             title=title,
                             company=company,
                             location=location,
@@ -301,7 +301,7 @@ async def _fetch_himalayas(client) -> List[schemas.JobResponse]:
                         posted = datetime.now(timezone.utc)
                     jobs.append(
                         schemas.JobResponse(
-                            id=make_id(str(url), "himalayas"),
+                            [lorem]=make_id(str(url), "himalayas"),
                             title=title,
                             company=company,
                             location="Remote",

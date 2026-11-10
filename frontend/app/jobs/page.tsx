@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 interface Job {
-  id: string;
+  [lorem]: string;
   title: string;
   company: string;
   location: string;
@@ -73,11 +73,11 @@ export default function JobsPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const toggleBookmark = (id: string) => {
+  const toggleBookmark = ([lorem]: string) => {
     setBookmarks((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      if (next.has([lorem])) next.delete([lorem]);
+      else next.add([lorem]);
       return next;
     });
   };
@@ -134,7 +134,7 @@ export default function JobsPage() {
 
         {error && (
           <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
-            <p className="font-medium">Oops — couldn’t load jobs.</p>
+            <p className="font-medium">Oops  -  couldn't load jobs.</p>
             <p className="text-sm opacity-80">{error}</p>
             <button
               onClick={fetchJobs}
@@ -155,11 +155,11 @@ export default function JobsPage() {
         <ul className="space-y-3">
           {jobs.map((job) => (
             <li
-              key={job.id}
+              key={job.[lorem]}
               className="group rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
             >
               <div className="flex items-start gap-3">
-                {/* Company avatar placeholder */}
+                {/* Company avatar [content pending] */}
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-bold">
                   {companyInitial(job.company)}
                 </div>
@@ -171,15 +171,15 @@ export default function JobsPage() {
                     </h2>
                     <div className="flex shrink-0 items-center gap-2">
                       <button
-                        onClick={() => toggleBookmark(job.id)}
+                        onClick={() => toggleBookmark(job.[lorem])}
                         className={`rounded-full p-1.5 transition ${
-                          bookmarks.has(job.id)
+                          bookmarks.has(job.[lorem])
                             ? "text-yellow-500"
                             : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                         }`}
-                        aria-label={bookmarks.has(job.id) ? "Unbookmark" : "Bookmark"}
+                        aria-label={bookmarks.has(job.[lorem]) ? "Unbookmark" : "Bookmark"}
                       >
-                        {bookmarks.has(job.id) ? (
+                        {bookmarks.has(job.[lorem]) ? (
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"

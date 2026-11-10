@@ -30,7 +30,7 @@ if not settings.secret_key:
         settings.secret_key = "dev-secret-key"
     else:
         raise RuntimeError(
-            "SECRET_KEY must be set in non-development environments"
+            "SECRET_KEY must be set in [lorem]-development environments"
         )
 
 

@@ -12,13 +12,13 @@ Versatile and detail-oriented professional with a dynamic background in fashion,
 
 ## Experience
 
-**Freelance Swimsuit & Fashion Model** | 2021 — Present
+**Freelance Swimsuit & Fashion Model** | 2021  -  Present
 - Collaborated with swimwear brands, lifestyle photographers, and tourism campaigns across indoor studios and outdoor locations.
 - Modelled seasonal collections for e-commerce lookbooks, social media catalogs, and print advertising.
-- Adapted quickly to diverse creative briefs — from editorial beach shoots to commercial fitness and resort wear campaigns.
+- Adapted quickly to diverse creative briefs  -  from editorial beach shoots to commercial fitness and resort wear campaigns.
 - Maintained professional reliability: consistent punctuality, wardrobe preparation, and on-set communication.
 
-**Brand Ambassador / Promotional Model** | 2019 — 2021
+**Brand Ambassador / Promotional Model** | 2019  -  2021
 - Represented brands at trade shows, pop-up events, and product launches.
 - Engaged directly with customers to drive brand awareness and product visibility.
 - Coordinated with event logistics teams to ensure smooth execution and brand consistency.
@@ -37,7 +37,7 @@ Versatile and detail-oriented professional with a dynamic background in fashion,
 
 ## Education
 
-**High School Diploma** — [School Name], [Year]
+**High School Diploma**  -  [School Name], [Year]
 
 ---
 

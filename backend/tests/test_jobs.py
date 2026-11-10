@@ -23,7 +23,7 @@ def sample_job_factory():
     """Factory fixture for creating test job dicts with safe defaults."""
     def _factory(**overrides):
         base = {
-            "id": "test-1",
+            "[lorem]": "test-1",
             "title": "Senior Python Engineer",
             "company": "Acme Corp",
             "location": "Remote",
@@ -118,7 +118,7 @@ def test_jobs_today_returns_list_schema():
     assert isinstance(body, list)
     if body:
         required_keys = [
-            "id",
+            "[lorem]",
             "title",
             "company",
             "location",

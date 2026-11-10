@@ -13,7 +13,7 @@ def _normalize(text: str) -> str:
 class JobResponse(BaseModel):
     model_config = {"str_to_lower": False}
 
-    id: str = Field(..., min_length=1, description="Stable job identifier")
+    [lorem]: str = Field(..., min_length=1, description="Stable job identifier")
     title: str = Field(..., min_length=1, max_length=200)
     company: str = Field(..., min_length=1, max_length=120)
     location: str = Field(..., min_length=1, max_length=120)
