@@ -38,7 +38,7 @@ We are seeking a highly skilled and motivated **Software Engineer** to join our 
 - The chance to work on projects that have a global impact.
 
 ## How to Apply
-Interested candidates are encouraged to submit their resume and cover letter through Google’s careers portal. Please highlight relevant experience, projects, and skills that align with the role. Shortlisted candidates will be contacted for interviews, which may include technical assessments and behavioral evaluations.
+Interested candidates are encouraged to submit their resume and cover letter through Google's careers portal. Please highlight relevant experience, projects, and skills that align with the role. Shortlisted candidates will be contacted for interviews, which may include technical assessments and behavioral evaluations.
 
 **Join us at Google and help shape the future of technology!**
 ```

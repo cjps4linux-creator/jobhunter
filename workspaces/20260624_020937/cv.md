@@ -10,7 +10,7 @@ This is a sample job description template designed to showcase the structure and
 
 ## Job Title
 
-**Software Engineer – Test Position**
+**Software Engineer - Test Position**
 
 ---
 
@@ -40,7 +40,7 @@ We are a forward-thinking technology company dedicated to building innovative pr
 
 ## Job Summary
 
-We are seeking a talented and motivated **Software Engineer** to join our dynamic engineering team. In this role, you will be responsible for designing, developing, and maintaining scalable software solutions across our product suite. You will collaborate closely with cross-functional teams — including Product, Design, and QA — to deliver high-quality features and improvements that delight our users.
+We are seeking a talented and motivated **Software Engineer** to join our dynamic engineering team. In this role, you will be responsible for designing, developing, and maintaining scalable software solutions across our product suite. You will collaborate closely with cross-functional teams  -  including Product, Design, and QA  -  to deliver high-quality features and improvements that delight our users.
 
 This is an excellent opportunity for a passionate engineer who enjoys working in a fast-paced, agile environment and is eager to contribute to products used by millions of users worldwide.
 
@@ -69,7 +69,7 @@ This is an excellent opportunity for a passionate engineer who enjoys working in
 - **Cloud Platforms:** Hands-on experience with cloud services such as **AWS, Google Cloud Platform, or Microsoft Azure**.
 - **Version Control:** Proficiency with **Git** and collaborative development workflows (branching, pull requests, CI/CD pipelines).
 - **Problem-Solving:** Strong analytical and problem-solving skills with the ability to debug complex systems.
-- **Communication:** Excellent written and verbal communication skills. Ability to articulate technical concepts to both technical and non-technical stakeholders.
+- **Communication:** Excellent written and verbal communication skills. Ability to articulate technical concepts to both technical and [lorem]-technical stakeholders.
 
 ---
 
@@ -129,12 +129,12 @@ This is an excellent opportunity for a passionate engineer who enjoys working in
 1. **Submit Application:** Please submit your resume/CV along with a cover letter detailing your interest and relevant experience.
 2. **Initial Screening:** A member of our talent acquisition team will review your application and reach out for a brief introductory phone screen (30 minutes).
 3. **Technical Assessment:** Qualified candidates will be invited to complete a take-home coding challenge or timed online assessment.
-4. **Technical Interview:** A live technical interview (60–90 minutes) covering system design, coding, and problem-solving.
+4. **Technical Interview:** A live technical interview (60-90 minutes) covering system design, coding, and problem-solving.
 5. **Team Interview:** Meet with potential team members and cross-functional partners to assess collaboration and cultural fit.
 6. **Final Interview:** A conversation with the hiring manager and/or senior leadership.
 7. **Offer:** Successful candidates will receive a formal offer letter.
 
-*We aim to complete the full process within **2–3 weeks** of the initial application.*
+*We aim to complete the full process within **2-3 weeks** of the initial application.*
 
 ---
 

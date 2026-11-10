@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Curated Jobs Dashboard — Terminal TUI for managing Scout-delivered job listings.
+Curated Jobs Dashboard  -  Terminal TUI for managing Scout-delivered job listings.
 
 Reads .md files from ~/Desktop/curated-jobs/, displays jobs in a Rich table,
 and provides actions: Generate CV, Open URL, Delete, Refresh.
@@ -80,8 +80,8 @@ class Job:
         """Parse a single job entry (bullet or header format)."""
         self.raw_content = entry
 
-        # Try bullet format: - [ ] **Company** — Role
-        bullet_match = re.search(r'- \[[ xX]\]\s*\*\*(.+?)\*\*\s*[—–-]\s*(.+)', entry)
+        # Try bullet format: - [ ] **Company**  -  Role
+        bullet_match = re.search(r'- \[[ xX]\]\s*\*\*(.+?)\*\*\s*[ - --]\s*(.+)', entry)
         if bullet_match:
             self.company = bullet_match.group(1).strip()
             self.role = bullet_match.group(2).strip()
@@ -107,8 +107,8 @@ class Job:
                     self.url = url_match.group(1).strip().rstrip(").,;")
             return
 
-        # Try delivery format: ## N. Company — Role
-        header_match = re.search(r'^##\s*\d+\.\s*(.+?)\s*[—–-]\s*(.+)', entry, re.MULTILINE)
+        # Try delivery format: ## N. Company  -  Role
+        header_match = re.search(r'^##\s*\d+\.\s*(.+?)\s*[ - --]\s*(.+)', entry, re.MULTILINE)
         if header_match:
             self.company = header_match.group(1).strip()
             self.role = header_match.group(2).strip()
@@ -124,7 +124,7 @@ class Job:
                 self.location = loc_match.group(1).strip()
 
             # URL from "How to Apply" or any URL (with or without https://)
-            url_match = re.search(r'(https?://\S+|[a-zA-Z0-9][\w\-]*\.(com|io|co|net|org|dev|app|za|ai|tech|xyz|me|info|biz|gov|edu)/[\w\-./%?&=#@+]*)', entry)
+            url_match = re.search(r'(https?://\S+|[a-zA-Z0-9][\w\-]*\.(com|io|co|net|org|dev|app|za|ai|tech|example_value|me|info|biz|gov|edu)/[\w\-./%?&=#@+]*)', entry)
             if url_match:
                 raw_url = url_match.group(1).strip().rstrip(").,;")
                 # Add https:// if missing
@@ -142,8 +142,8 @@ class Job:
         """Parse a single job entry from its .md file.
 
         Supports two formats:
-        1. Curated format: Each file contains one job per bullet (- [ ] **Company** — Role)
-        2. Delivery format: Full report with ## N. Company — Role headers
+        1. Curated format: Each file contains one job per bullet (- [ ] **Company**  -  Role)
+        2. Delivery format: Full report with ## N. Company  -  Role headers
         """
         try:
             with open(self.filepath, "r", encoding="utf-8") as f:
@@ -177,8 +177,8 @@ class Job:
         if loc_match:
             self.location = loc_match.group(1).strip()
 
-        # Extract Company + Role from bullet format: - [ ] **Company** — Role
-        bullet_match = re.search(r'- \[[ xX]\]\s*\*\*(.+?)\*\*\s*[—–-]\s*(.+)', content)
+        # Extract Company + Role from bullet format: - [ ] **Company**  -  Role
+        bullet_match = re.search(r'- \[[ xX]\]\s*\*\*(.+?)\*\*\s*[ - --]\s*(.+)', content)
         if bullet_match:
             self.company = bullet_match.group(1).strip()
             self.role = bullet_match.group(2).strip()
@@ -192,8 +192,8 @@ class Job:
                     self.url = url_match.group(1).strip().rstrip(").,;")
             return
 
-        # Try delivery format: ## N. Company — Role
-        header_match = re.search(r'##\s*\d+\.\s*(.+?)\s*[—–-]\s*(.+)', content)
+        # Try delivery format: ## N. Company  -  Role
+        header_match = re.search(r'##\s*\d+\.\s*(.+?)\s*[ - --]\s*(.+)', content)
         if header_match:
             self.company = header_match.group(1).strip()
             self.role = header_match.group(2).strip()
@@ -205,7 +205,7 @@ class Job:
     @property
     def description(self) -> str:
         """Full description for CV generator input."""
-        parts = [f"{self.company} — {self.role}"]
+        parts = [f"{self.company}  -  {self.role}"]
         if self.url:
             parts.append(f"URL: {self.url}")
         if self.why:
@@ -338,7 +338,7 @@ class JobsDashboard:
         self.jobs = load_jobs()
         if self.selected_index >= len(self.jobs):
             self.selected_index = max(0, len(self.jobs) - 1)
-        self.message = f"Refreshed — {len(self.jobs)} jobs loaded"
+        self.message = f"Refreshed  -  {len(self.jobs)} jobs loaded"
         self.message_style = Style(color="green")
 
     def build_table(self) -> Table:
@@ -361,11 +361,11 @@ class JobsDashboard:
 
         if not self.jobs:
             table.add_row(
-                "—",
+                " - ",
                 Text("No jobs yet", style=Style(color="grey50", italic=True)),
                 Text("Waiting for Scout delivery...", style=Style(color="grey50", italic=True)),
-                "—",
-                "—",
+                " - ",
+                " - ",
             )
         else:
             for i, job in enumerate(self.jobs):
@@ -437,7 +437,7 @@ class JobsDashboard:
         )
 
     def build_action_bar(self) -> Panel:
-        """Build the action menu bar."""
+        """Build the action menu sample."""
         if self.mode == "action":
             elements = []
             for i, (key, label) in enumerate(self.actions):
@@ -466,7 +466,7 @@ class JobsDashboard:
         )
 
     def build_status_bar(self) -> Panel:
-        """Build the status/message bar."""
+        """Build the status/message sample."""
         if self.message:
             msg_text = Text(f"  {self.message} ", style=self.message_style)
         else:
@@ -544,7 +544,7 @@ class JobsDashboard:
 
         # Exit the live display before running subprocess
         print(f"\n{'='*60}")
-        print(f"  Generating CV for: {job.company} — {job.role}")
+        print(f"  Generating CV for: {job.company}  -  {job.role}")
         print(f"  Running: {CV_GENERATOR_SCRIPT}")
         print(f"{'='*60}\n")
 
@@ -680,7 +680,7 @@ class JobsDashboard:
                 live.update(self._render_layout())
 
                 while True:
-                    # Check for input (non-blocking)
+                    # Check for input ([lorem]-blocking)
                     if select.select([sys.stdin], [], [], 0.1)[0]:
                         key = sys.stdin.read(1)
 
@@ -734,7 +734,7 @@ class JobsDashboard:
         return Group(*parts)
 
     def run_simple(self):
-        """Simple non-TUI mode for desktop launchers. Renders once and waits for input."""
+        """Simple [lorem]-TUI mode for desktop launchers. Renders once and waits for input."""
         self.refresh_jobs()
         self.console.clear()
         self.console.print(self._render_layout())
@@ -799,7 +799,7 @@ def main():
         # Full TUI mode
         dashboard.run()
     else:
-        # Simple mode for desktop launchers (non-tty)
+        # Simple mode for desktop launchers ([lorem]-tty)
         dashboard.run_simple()
 
 

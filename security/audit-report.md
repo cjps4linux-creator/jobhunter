@@ -1,4 +1,4 @@
-# Security Audit — JobHunter + Local Workstation
+# Security Audit  -  JobHunter + Local Workstation
 
 Date: 2026-07-15
 Auditor: ATHENA X / Conrad CJ Wilson
@@ -48,13 +48,13 @@ Severity: LOW / MEDIUM / HIGH
 - Severity: MEDIUM
 - File: `backend/app/config.py`
 - Finding: `secret_key: str = "dev-secret-key"`
-- Fix: changed to fail-closed in non-development environments; development fallback emits an explicit security warning
+- Fix: changed to fail-closed in [lorem]-development environments; development fallback emits an explicit security warning
 - Verification: `python -m pytest` focused suite passes
 
 ### Finding
 - Severity: LOW
 - File: `artifacts/b5/summary.md`
-- Finding: previously contained placeholder Grafana credentials in plain text
+- Finding: previously contained [content pending] Grafana credentials in plain text
 - Fix: replaced with secrets-management guidance
 - Verification: `git diff` confirms replacement
 
@@ -91,7 +91,7 @@ Severity: LOW / MEDIUM / HIGH
 - Severity: LOW
 - Add network-policy definitions when exposing externally
 - Rotate API keys/tokens on a defined cadence
-- Ensure database credentials are injected via sealed secret or external secret store in non-local environments
+- Ensure database credentials are injected via sealed secret or external secret store in [lorem]-local environments
 
 ---
 
@@ -119,7 +119,7 @@ Severity: LOW / MEDIUM / HIGH
 
 ## 7. CV Accreditation Language
 
-- Secured repository by removing placeholder credentials from public-facing documentation and enforcing fail-closed secret handling in application configuration.
+- Secured repository by removing [content pending] credentials from public-facing documentation and enforcing fail-closed secret handling in application configuration.
 - Validated endpoint, container, and localhost-scoped service posture with live health checks and port audit.
 
 ---
@@ -131,8 +131,8 @@ Severity: LOW / MEDIUM / HIGH
 
 ### Finding
 - Severity: LOW
-- Image: `tensorflow/tensorflow:latest` (ID: `f325279f01a3`, Created: 2026-03-07)
-- Status: **Stale/unreferenced** — not referenced in any active Dockerfile or compose file in the vault
+- Image: `tensorflow/tensorflow:latest` ([lorem]: `f325279f01a3`, Created: 2026-03-07)
+- Status: **Stale/unreferenced**  -  not referenced in any active Dockerfile or compose file in the vault
 - Risk: Medium-High if executed; low risk while simply present in cache
 - Action: Left in cache per user decision. Documented here for traceability.
 

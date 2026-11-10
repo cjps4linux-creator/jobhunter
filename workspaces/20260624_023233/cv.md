@@ -32,7 +32,7 @@ As a Software Engineer at Google, you will work on a wide range of projects span
 - **Data Structures & Algorithms:** Deep understanding of fundamental data structures, algorithms, and computational complexity.
 - **Software Development:** Experience with full software development lifecycle, including design, implementation, testing, and deployment.
 - **Problem-Solving:** Excellent analytical and problem-solving skills with the ability to break down complex problems into manageable components.
-- **Communication:** Strong written and verbal communication skills, with the ability to articulate technical concepts to both technical and non-technical audiences.
+- **Communication:** Strong written and verbal communication skills, with the ability to articulate technical concepts to both technical and [lorem]-technical audiences.
 
 ### Preferred
 
@@ -89,7 +89,7 @@ Apply through [Google Careers](https://careers.google.com) or reach out to a Goo
 
 ---
 
-**Job ID:** TBD  
+**Job [lorem]:** [to be determined]  
 **Location:** Mountain View, CA (and other global offices)  
 **Employment Type:** Full-Time  
 **Team:** Engineering  

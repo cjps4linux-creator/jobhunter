@@ -24,7 +24,7 @@ if not logger.handlers:
 
 class CorrelationMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
-        correlation_id = request.headers.get("X-Correlation-ID") or str(uuid.uuid4())
+        correlation_id = request.headers.get("X-Correlation-[lorem]") or str(uuid.uuid4())
         request.state.correlation_id = correlation_id
         start = time.perf_counter()
         try:
@@ -45,7 +45,7 @@ class CorrelationMiddleware(BaseHTTPMiddleware):
             )
             raise
         duration_ms = round((time.perf_counter() - start) * 1000, 2)
-        response.headers["X-Correlation-ID"] = correlation_id
+        response.headers["X-Correlation-[lorem]"] = correlation_id
         logger.info(
             json.dumps(
                 {

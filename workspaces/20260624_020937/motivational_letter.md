@@ -64,15 +64,15 @@ We are seeking a talented and motivated Software Engineer to join our growing te
 
 ## What We Offer
 
-- **Competitive Salary** — Commensurate with experience and skills.
-- **Equity** — Stock options as part of your compensation package.
-- **Health & Wellness** — Comprehensive medical, dental, and vision insurance.
-- **Retirement** — 401(k) plan with company match.
-- **Flexible Work** — Remote work options and flexible hours.
-- **Time Off** — Generous PTO policy including vacation, sick leave, and holidays.
-- **Professional Development** — Annual learning budget for conferences, courses, and certifications.
-- **Parental Leave** — Paid leave for new parents.
-- **Team Events** — Regular team outings, hackathons, and social events.
+- **Competitive Salary**  -  Commensurate with experience and skills.
+- **Equity**  -  Stock options as part of your compensation package.
+- **Health & Wellness**  -  Comprehensive medical, dental, and vision insurance.
+- **Retirement**  -  401(k) plan with company match.
+- **Flexible Work**  -  Remote work options and flexible hours.
+- **Time Off**  -  Generous PTO policy including vacation, sick leave, and holidays.
+- **Professional Development**  -  Annual learning budget for conferences, courses, and certifications.
+- **Parental Leave**  -  Paid leave for new parents.
+- **Team Events**  -  Regular team outings, hackathons, and social events.
 
 ---
 
@@ -80,9 +80,9 @@ We are seeking a talented and motivated Software Engineer to join our growing te
 
 Interested candidates should submit the following:
 
-1. **Resume/CV** — Highlighting relevant experience and skills.
-2. **Cover Letter** (Optional) — Describing your interest in the role and what you would bring to the team.
-3. **Portfolio/GitHub** (Optional) — Links to projects or repositories that showcase your work.
+1. **Resume/CV**  -  Highlighting relevant experience and skills.
+2. **Cover Letter** (Optional)  -  Describing your interest in the role and what you would bring to the team.
+3. **Portfolio/GitHub** (Optional)  -  Links to projects or repositories that showcase your work.
 
 ---
 

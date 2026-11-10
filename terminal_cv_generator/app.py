@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Terminal CV Generator — v3
+Terminal CV Generator  -  v3
 Generates personalised job application documents (CV, cover letter,
 motivational letter, proof of work) using Hermes agents.
 
@@ -31,15 +31,15 @@ PROVIDER = "openrouter"
 
 # ─── CJ's Profile (embedded so the agent knows exactly who it's writing for) ──
 CJ_PROFILE = """
-CJ Wilson (Conrad Wilson) — Full-Stack & AI Engineer
+CJ Wilson (Conrad Wilson)  -  Full-Stack & AI Engineer
 Location: Durban, South Africa (SAST, GMT+2)
 Email: cjtw0703@protonmail.com | Phone: 071 334 9568
 
 PROFESSIONAL PROFILE:
-Self-taught full-stack developer and AI engineer. Built JobHunter — a job search
+Self-taught full-stack developer and AI engineer. Built JobHunter  -  a job search
 aggregation platform that scraped 41 sources and matched 300+ jobs/day, running
-entirely on constrained hardware (PS4, 3.8GB RAM). 8 years in technical sales (Makro,
-Ittas) — strong communicator, understands business needs, delivers working code.
+entirely on constrained hardware (PS4, 3.8GB RAM). 8 years in technical sales (Macro,
+Ittas)  -  strong communicator, understands business needs, delivers working code.
 
 TECHNICAL SKILLS:
 - Languages: Python (FastAPI), JavaScript/TypeScript (Next.js, React, Node.js)
@@ -49,19 +49,19 @@ TECHNICAL SKILLS:
 - Tools: Git, uv, Celery, Playwright, BeautifulSoup, httpx
 
 EXPERIENCE HIGHLIGHTS:
-1. JobHunter Platform — Built end-to-end job search platform (Python/FastAPI + Next.js + PostgreSQL + Redis + Celery). 41 scrapers, 300+ jobs/day, 3-layer relevance filtering.
-2. 43+ Production Web Scrapers — Deployed for e-commerce, job boards, real estate, competitive intelligence.
-3. Technical Sales (Makro 2015–2023) — 8 years in B2B technical sales, consistently exceeded targets.
-4. Ittas.co.za (Oct–Dec 2023) — Bitrix24 CRM implementation and lead generation.
+1. JobHunter Platform  -  Built end-to-end job search platform (Python/FastAPI + Next.js + PostgreSQL + Redis + Celery). 41 scrapers, 300+ jobs/day, 3-layer relevance filtering.
+2. 43+ Production Web Scrapers  -  Deployed for e-commerce, job boards, real estate, competitive intelligence.
+3. Technical Sales (Macro 2015-2023)  -  8 years in B2B technical sales, consistently exceeded targets.
+4. Ittas.co.za (Oct-Dec 2023)  -  Bitrix24 CRM implementation and lead generation.
 
 EDUCATION:
-- Diploma in Information Technology — Oval International Computer Education
-- Microsoft Certifications: M365, Surface, Windows (2021–2023)
+- Diploma in Information Technology  -  Oval International Computer Education
+- Microsoft Certifications: M365, Surface, Windows (2021-2023)
 """
 
 # ─── Detailed Project Reference (for Proof of Work) ─────────────────────────
 PROJECT_REFERENCE = """
-# CJ Wilson — Detailed Project Reference
+# CJ Wilson  -  Detailed Project Reference
 
 ## 1. JobHunter Platform
 
@@ -73,7 +73,7 @@ PROJECT_REFERENCE = """
 - 41 production web scrapers across job boards, e-commerce, real estate
 - 300+ jobs/day throughput with 3-layer relevance filtering
 - 30,000+ jobs in database, 75+ companies tracked
-- Zero cloud infrastructure cost — ran entirely on consumer hardware
+- Zero cloud infrastructure cost  -  ran entirely on consumer hardware
 - Built matching algorithm, alert system, and full UI
 
 **Why it matters:** Demonstrates ability to build production-grade systems under extreme constraints. Proves resourcefulness, systems thinking, and delivery capability.
@@ -98,7 +98,7 @@ PROJECT_REFERENCE = """
 
 ## 3. Multi-Agent Orchestration System
 
-**What it was:** A team of 7 AI agents (Athena, Bob, Clio, Narrator, Scout, Ledger, Sentinel) coordinating autonomous tasks — from job scraping to document generation to financial tracking.
+**What it was:** A team of 7 AI agents (Athena, Bob, Clio, Narrator, Scout, Ledger, Sentinel) coordinating autonomous tasks  -  from job scraping to document generation to financial tracking.
 
 **Tech stack:** Python, Hermes Agent framework, systemd, Docker, Telegram API.
 
@@ -112,7 +112,7 @@ PROJECT_REFERENCE = """
 
 ---
 
-## 4. Technical Sales — Makro (2015–2023)
+## 4. Technical Sales  -  Macro (2015-2023)
 
 **Role:** B2B Technical Sales Consultant
 
@@ -126,7 +126,7 @@ PROJECT_REFERENCE = """
 
 ---
 
-## 5. CRM Implementation — Ittas.co.za (Oct–Dec 2023)
+## 5. CRM Implementation  -  Ittas.co.za (Oct-Dec 2023)
 
 **What it was:** Ground-up Bitrix24 CRM implementation for a lead generation business.
 
@@ -145,8 +145,8 @@ DOC_TYPES = [
         "ATS-Optimised CV",
         """You are a professional CV writer. Using the candidate profile and job description below, create a concise, ATS-friendly CV in Markdown.
 
-FORMAT (strict — follow this exactly):
-# Curriculum Vitae — CJ Wilson
+FORMAT (strict  -  follow this exactly):
+# Curriculum Vitae  -  CJ Wilson
 ---
 ## Professional Summary
 [3-4 sentences: who they are, what they bring, relevant to the job. Mention the PS4/JobHunter story ONCE here as proof of resourcefulness.]
@@ -157,7 +157,7 @@ FORMAT (strict — follow this exactly):
 ## Education & Certifications
 [Education, then certifications]
 ## Key Projects
-[1-2 paragraphs on most relevant projects — mention JobHunter briefly. Do NOT repeat the full PS4 story here (it's in Summary).]
+[1-2 paragraphs on most relevant projects  -  mention JobHunter briefly. Do NOT repeat the full PS4 story here (it's in Summary).]
 
 TARGET LENGTH: ~400-500 words total. Be concise. Use action verbs. Tailor every section to match keywords from the job description.
 IMPORTANT: Do NOT mention PlayStation 4 or PS4 more than once (only in Professional Summary). Focus on skills, outcomes, and relevance to the job.
@@ -176,7 +176,7 @@ Write the complete CV in Markdown. Do not use any tools.""",
         """You are a professional cover letter writer. Using the candidate profile and job description below, create a compelling cover letter in Markdown.
 
 FORMAT (strict):
-# Cover Letter — Application for [Role Name at Company]
+# Cover Letter  -  Application for [Role Name at Company]
 ---
 [Salutation: Dear Hiring Team / Dear [Name] if known]
 
@@ -192,7 +192,7 @@ FORMAT (strict):
 ## Closing
 [1 short paragraph: Availability, enthusiasm, call to action. Include CJ's contact details.]
 
-TARGET LENGTH: ~200-250 words. Be specific — never generic. Mirror language from the job description.
+TARGET LENGTH: ~200-250 words. Be specific  -  never generic. Mirror language from the job description.
 IMPORTANT: Do NOT mention PlayStation 4 or PS4 at all. Focus on skills, experience, and what CJ can do for THIS company.
 
 CJ's profile:
@@ -209,13 +209,13 @@ Write the complete cover letter in Markdown. Do not use any tools.""",
         """You are a professional motivational letter writer. Using the candidate profile and job description below, create a motivational letter in Markdown.
 
 FORMAT (strict):
-# Motivational Letter — [Company Name]
+# Motivational Letter  -  [Company Name]
 ---
 ## Why I'm Applying
-[1 paragraph: What draws CJ to this role specifically — avoid clichés. Focus on the WORK and the IMPACT, not the PS4 origin story.]
+[1 paragraph: What draws CJ to this role specifically  -  avoid clichés. Focus on the WORK and the IMPACT, not the PS4 origin story.]
 
 ## What I Bring
-[1 paragraph: CJ's unique strengths, told through the lens of this role. Emphasise adaptability, self-directed learning, and delivery. Reference the multi-agent system or sales experience — NOT the PS4.]
+[1 paragraph: CJ's unique strengths, told through the lens of this role. Emphasise adaptability, self-directed learning, and delivery. Reference the multi-agent system or sales experience  -  NOT the PS4.]
 
 ## How I'll Contribute
 [1 paragraph: Concrete things CJ could do in the first 30/60/90 days. Show proactive thinking.]
@@ -237,7 +237,7 @@ Write the complete motivational letter in Markdown. Do not use any tools.""",
         """You are a technical writer. Create a detailed Proof of Work document that showcases CJ's projects with depth and evidence.
 
 FORMAT (strict):
-# Proof of Work — CJ Wilson
+# Proof of Work  -  CJ Wilson
 ---
 
 [For each of the 4 projects below, write a detailed section using this structure:]
@@ -262,7 +262,7 @@ RULES:
 - Explain technical challenges and how CJ solved them
 - Each project section should be 6-10 lines (detailed but not bloated)
 - Tailor emphasis to match the job description (highlight relevant projects first)
-- This is a STANDALONE document — it can be attached separately for verification
+- This is a STANDALONE document  -  it can be attached separately for verification
 
 CJ's detailed project reference:
 {projects}
@@ -329,7 +329,7 @@ def render_summary(files):
             filename = os.path.basename(filepath)
             table.add_row(str(i + 1), label, filename, "✅ Done")
         else:
-            table.add_row(str(i + 1), label, "—", "❌ Failed")
+            table.add_row(str(i + 1), label, " - ", "❌ Failed")
 
     console.print(table)
 
@@ -340,7 +340,7 @@ def render_summary(files):
         console.print("[dim]   Open any .md file to view your tailored document.[/dim]")
 
 
-# ─── Core Generation (with real progress bar) ────────────────────────────────
+# ─── Core Generation (with real progress sample) ────────────────────────────────
 
 def make_agent():
     return AIAgent(
@@ -370,7 +370,7 @@ def generate_one(key, label, template, job_description, job_folder):
     ) as progress:
         task = progress.add_task(f"Generating {label}...", total=100)
 
-        # Run API call in a thread so we can advance the bar while waiting
+        # Run API call in a thread so we can advance the sample while waiting
         result = {"value": None, "done": False}
 
         def call_agent():
@@ -383,14 +383,14 @@ def generate_one(key, label, template, job_description, job_folder):
         thread = threading.Thread(target=call_agent)
         thread.start()
 
-        # Advance progress bar while the API call runs in background
+        # Advance progress sample while the API call runs in background
         while not result["done"]:
             progress.update(task, advance=1)
             # Rich Progress handles timing internally; we just tick
             import time
             time.sleep(0.08)
 
-        # Ensure bar shows 100% when done
+        # Ensure sample shows 100% when done
         remaining = 100 - progress.tasks[0].completed
         if remaining > 0:
             progress.update(task, advance=remaining)
@@ -408,7 +408,7 @@ def generate_one(key, label, template, job_description, job_folder):
             return None
 
         if not text:
-            progress.update(task, description=f"❌ {label} — empty output")
+            progress.update(task, description=f"❌ {label}  -  empty output")
             return None
 
         # Clean code fences

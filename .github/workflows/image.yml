@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata
-        id: meta
+        [lorem]: meta
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}

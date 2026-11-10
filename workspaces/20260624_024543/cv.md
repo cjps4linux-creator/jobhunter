@@ -6,7 +6,7 @@
 
 ## Professional Summary
 
-Results-driven Software Engineer with hands-on experience building full-stack web applications, scalable data pipelines, and automated systems. Proven ability to deliver production-grade solutions under tight resource constraints — including deploying and maintaining multi-service architectures on minimal infrastructure (3.8GB RAM). Adept at designing end-to-end systems, from database architecture to frontend UI, with a focus on reliability, performance, and clean code. Passionate about leveraging technology to solve real-world problems and continuously improving system efficiency.
+Results-driven Software Engineer with hands-on experience building full-stack web applications, scalable data pipelines, and automated systems. Proven ability to deliver production-grade solutions under tight resource constraints  -  including deploying and maintaining multi-service architectures on minimal infrastructure (3.8GB RAM). Adept at designing end-to-end systems, from database architecture to frontend UI, with a focus on reliability, performance, and clean code. Passionate about leveraging technology to solve real-world problems and continuously improving system efficiency.
 
 ---
 
@@ -26,34 +26,34 @@ Results-driven Software Engineer with hands-on experience building full-stack we
 
 ## Professional Experience
 
-### Software Engineer — Freelance / Independent Projects
-*2023 – Present*
+### Software Engineer  -  Freelance / Independent Projects
+*2023 - Present*
 
 - **Designed and deployed JobHunter**, a full-stack job scraping and matching platform aggregating listings from 10+ global and local job boards (RemoteOK, Remotive, We Work Remotely, Himalayas, Indeed, Pnet, Careers24, and more)
-- Built a **Next.js 14 frontend** with a Google Jobs-inspired mobile-optimized UI — stateless, no authentication layer, RSS/JSON feed consumption for maximum performance
+- Built a **Next.js 14 frontend** with a Google Jobs-inspired mobile-optimized UI  -  stateless, no authentication layer, RSS/JSON feed consumption for maximum performance
 - Engineered a **FastAPI backend** with PostgreSQL + Redis + Celery for async job processing, achieving reliable multi-source data ingestion on constrained infrastructure (3.8GB RAM, PS4 hardware)
 - Implemented **Playwright-based scraping pipelines** to unlock JavaScript-rendered job boards, expanding coverage to previously inaccessible sources
-- Architected a **multi-agent orchestration system** (Hermes framework) coordinating specialized agents for development, analytics, security, and documentation — demonstrating systems thinking and technical leadership
+- Architected a **multi-agent orchestration system** (Hermes framework) coordinating specialized agents for development, analytics, security, and documentation  -  demonstrating systems thinking and technical leadership
 - Maintained **99% uptime** through careful memory governance, OOM shielding, and resource-aware task scheduling
 - Containerized entire stack with **Docker Compose**, enabling reproducible one-command deployment
 
 ### Systems & Infrastructure Projects
-*2022 – Present*
+*2022 - Present*
 
 - Administered **Linux-based development environments** (CachyOS, kernel 5.15) with passwordless sudo workflows, optimizing for developer productivity and security
 - Built **automated monitoring and alerting systems** with configurable cron jobs, log rotation, and resource tracking
-- Implemented **double-entry financial ledgers** (hledger) for project cost tracking — zero cloud spend, full local accountability
+- Implemented **double-entry financial ledgers** (hledger) for project cost tracking  -  zero cloud spend, full local accountability
 - Developed **lightweight web fetching pipelines** using Lynx/w3m text streams, eliminating browser runtime overhead for data collection tasks
 
 ---
 
 ## Key Projects
 
-### JobHunter — Job Aggregation & Matching Platform
+### JobHunter  -  Job Aggregation & Matching Platform
 *Full-Stack | Next.js + FastAPI + PostgreSQL + Redis + Celery*
 
 - Aggregates job listings from 10+ sources (global + South African markets) via JSON feeds and web scraping
-- Mobile-first UI with stateless architecture — no database queries on page load, 3-hour refresh cycle
+- Mobile-first UI with stateless architecture  -  no database queries on page load, 3-hour refresh cycle
 - YAML-configurable keyword and location targeting for customizable job feeds
 - Deployed on resource-constrained hardware (PS4, 3.8GB RAM) with optimized build flags and memory management
 
@@ -74,27 +74,27 @@ Results-driven Software Engineer with hands-on experience building full-stack we
 
 - Active contributor to open-source ecosystems and personal projects
 - Continuous skill development through hands-on building, documentation, and iterative improvement
-- Focus on practical engineering over credentials — every skill demonstrated through shipped projects
+- Focus on practical engineering over credentials  -  every skill demonstrated through shipped projects
 
 ---
 
 ## Achievements
 
-- ✅ **Zero-budget cloud deployment** — entire platform runs on local hardware with no recurring infrastructure costs
-- ✅ **10+ job board integrations** — global (RemoteOK, WWR, Himalayas, Remotive) + South African (Pnet, Careers24, Indeed)
-- ✅ **Production on constrained hardware** — stable multi-service architecture running on 3.8GB RAM
-- ✅ **Multi-agent system design** — built and operational orchestration framework managing concurrent agent workflows
-- ✅ **Mobile-optimized UI** — Google Jobs-inspired interface with sub-second load times and zero authentication overhead
+- ✅ **Zero-budget cloud deployment**  -  entire platform runs on local hardware with no recurring infrastructure costs
+- ✅ **10+ job board integrations**  -  global (RemoteOK, WWR, Himalayas, Remotive) + South African (Pnet, Careers24, Indeed)
+- ✅ **Production on constrained hardware**  -  stable multi-service architecture running on 3.8GB RAM
+- ✅ **Multi-agent system design**  -  built and operational orchestration framework managing concurrent agent workflows
+- ✅ **Mobile-optimized UI**  -  Google Jobs-inspired interface with sub-second load times and zero authentication overhead
 
 ---
 
 ## What I Bring to Google
 
-- **Full-stack capability** — comfortable from database schema design to pixel-perfect frontend implementation
-- **Resource efficiency** — trained to optimize for performance, memory, and reliability from day one
-- **Systems thinking** — see the whole board, anticipate downstream effects, design for scale
-- **Self-directed execution** — ship without hand-holding, document as I go, review before shipping
-- **Pragmatic engineering** — done beats perfect; iterate based on real feedback
+- **Full-stack capability**  -  comfortable from database schema design to pixel-perfect frontend implementation
+- **Resource efficiency**  -  trained to optimize for performance, memory, and reliability from day one
+- **Systems thinking**  -  see the whole board, anticipate downstream effects, design for scale
+- **Self-directed execution**  -  ship without hand-holding, document as I go, review before shipping
+- **Pragmatic engineering**  -  done beats perfect; iterate based on real feedback
 
 ---
 

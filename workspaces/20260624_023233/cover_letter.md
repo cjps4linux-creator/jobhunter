@@ -16,7 +16,7 @@ We are looking for a highly motivated and skilled **Software Engineer** to join 
 - Stay up-to-date with emerging technologies and best practices.
 
 ## 🎯 Qualifications
-- Bachelor’s or Master’s degree in Computer Science or related field.
+- Bachelor's or Master's degree in Computer Science or related field.
 - Strong understanding of data structures, algorithms, and software design.
 - Proficiency in one or more programming languages (e.g., Python, Java, C++, JavaScript).
 - Experience with cloud platforms (e.g., Google Cloud Platform).
